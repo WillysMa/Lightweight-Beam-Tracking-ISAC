@@ -1,0 +1,40 @@
+Per-sample FLOPs: 136.915 MFLOPs, 1.772 M params
+AugData:True, LabelSmooth:True
+DBA-Score (Top-3): [0.8244, 0.8298, 0.8292, 0.8260] 0.8274(avr)
+Top-K Accuracy Per Time Slot:
+Top-1 Accuracy: [0.3773, 0.3843, 0.3801, 0.3567]  0.3746
+Top-2 Accuracy: [0.5713, 0.5802, 0.5704, 0.5657]  0.5719
+Top-3 Accuracy: [0.6840, 0.6942, 0.6905, 0.6863]  0.6888
+Top-5 Accuracy: [0.8102, 0.8163, 0.8191, 0.8153]  0.8152
+Top-10 Accuracy: [0.8878, 0.8925, 0.8929, 0.8943] 0.8919
+
+
+AugData:True, LabelSmooth:False
+DBA-Score (Top-3): [0.8159, 0.8194, 0.8185, 0.8127] 0.8166
+Top-K Accuracy Per Time Slot:
+Top-1 Accuracy: [0.3590, 0.3619, 0.3614, 0.3530] 0.3588
+Top-2 Accuracy: [0.5526, 0.5559, 0.5470, 0.5381] 0.5484
+Top-3 Accuracy: [0.6713, 0.6788, 0.6788, 0.6657] 0.6737
+Top-5 Accuracy: [0.7952, 0.7962, 0.8018, 0.7934] 0.7967
+Top-10 Accuracy: [0.8827, 0.8831, 0.8813, 0.8808] 0.8820
+
+
+AugData:False, LabelSmooth:True
+DBA-Score (Top-3): [0.8331, 0.8366, 0.8316, 0.8285] 0.8325
+Top-K Accuracy Per Time Slot:
+Top-1 Accuracy: [0.3791, 0.3843, 0.3829, 0.3693] 0.3789
+Top-2 Accuracy: [0.6017, 0.6012, 0.5909, 0.5816] 0.5939
+Top-3 Accuracy: [0.7073, 0.7101, 0.7008, 0.6961] 0.7036
+Top-5 Accuracy: [0.8256, 0.8336, 0.8294, 0.8186] 0.8268
+Top-10 Accuracy: [0.8836, 0.8864, 0.8883, 0.8883]0.8867
+
+AugData:False, LabelSmooth:False
+DBA-Score (Top-3): [0.8190, 0.8216, 0.8175, 0.8078] 0.8165
+Top-K Accuracy Per Time Slot:
+Top-1 Accuracy: [0.3338, 0.3240, 0.3235, 0.3226] 0.3260
+Top-2 Accuracy: [0.5362, 0.5358, 0.5208, 0.5166] 0.5274
+Top-3 Accuracy: [0.6620, 0.6606, 0.6531, 0.6377] 0.6534
+Top-5 Accuracy: [0.8149, 0.8135, 0.8083, 0.7976] 0.8086
+Top-10 Accuracy: [0.8836, 0.8892, 0.8873, 0.8855] 0.8864
+
+

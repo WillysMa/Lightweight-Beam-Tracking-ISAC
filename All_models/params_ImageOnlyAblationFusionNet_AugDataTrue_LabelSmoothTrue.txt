@@ -1,0 +1,203 @@
+{
+  "epochs": 100,
+  "train_batch_size": 32,
+  "test_batch_size": 32,
+  "lr": 0.0007,
+  "weight_decay": 0,
+  "loss_type": "focal",
+  "grad_clip": 10.0,
+  "patience": 20,
+  "use_early_stopping": true,
+  "min_delta": 0.0001,
+  "seed": 0,
+  "SNR_dB": 20,
+  "augment_data": true,
+  "modality": "image",
+  "label_smoothing": true,
+  "soft_label_weight": 0.2,
+  "beam_soft_label_temperature": 2.0,
+  "kd_mode": 0,
+  "KD_temperature": 2.0,
+  "KD_weight": 0.1,
+  "alpha_warmup_epochs": 0,
+  "teacher_model_name": "BothTeacher.pth",
+  "rkd_pairs_per_anchor": 4,
+  "rkd_distance_weight": 10.0,
+  "rkd_angle_weight": 10.0,
+  "feature_size": 64,
+  "gru_hidden_size": 64,
+  "gru_num_layers_teacher": 2,
+  "gru_num_layers_student": 1,
+  "num_classes": 64,
+  "seq_length_teacher": 8,
+  "seq_length_student": 8,
+  "num_pred": 3,
+  "downsample_ratio": 1,
+  "full_beam_dim": 64,
+  "num_heads": 8,
+  "ablation_backbone": "resnet",
+  "ablation_temporal": "gru_mha",
+  "ablation_max_seq_len": 64,
+  "ablation_gru_dropout": 0.5,
+  "width_multiplier_image": 0.5,
+  "width_multiplier_radar": 0.5,
+  "ds_conv_block_version": 1,
+  "resnet_ds_total_blocks": 4,
+  "resnet_ds_blocks_per_stage": "",
+  "data_root": "/run/nvme/job_34354160/data",
+  "dataset_pct": 1.0,
+  "train_csv_name": "train_seqs_RA.csv",
+  "test_csv_name": "test_seqs_RA.csv",
+  "num_workers": 8,
+  "use_gpu": true,
+  "save_dir": "saved_folder_train",
+  "debug": false,
+  "scale_loss": 1.0,
+  "resume": false,
+  "start_epoch": 0,
+  "T_0": 10,
+  "T_mult": 2,
+  "eta_min": 1e-06
+}-------------------------------------------------------------------------------------------------------------
+                         Layer (type)                            Input Shape         Param #     Tr. Param #
+=============================================================================================================
+   ResNet18ModalityFeatureExtractor-1                    [1, 7, 1, 224, 224]      11,203,072      11,203,072
+                             Linear-2                             [1, 7, 64]           4,160           4,160
+                          LayerNorm-3                             [1, 7, 64]             128             128
+                                GRU-4                             [1, 7, 64]          49,920          49,920
+                 MultiheadAttention-5     [1, 7, 64], [1, 7, 64], [1, 7, 64]          16,640          16,640
+                             Linear-6                             [1, 7, 64]           4,160           4,160
+                               ReLU-7                             [1, 7, 64]               0               0
+                            Dropout-8                             [1, 7, 64]               0               0
+                             Linear-9                             [1, 7, 64]           4,160           4,160
+                              ReLU-10                             [1, 7, 64]               0               0
+                           Dropout-11                             [1, 7, 64]               0               0
+                            Linear-12                             [1, 7, 64]           4,160           4,160
+=============================================================================================================
+Total params: 11,286,400
+Trainable params: 11,286,400
+Non-trainable params: 0
+-------------------------------------------------------------------------------------------------------------
+
+
+================================================ Hierarchical Summary ================================================
+
+ImageOnlyAblationFusionNet(
+  (image_encoder): ResNet18ModalityFeatureExtractor(
+    (backbone): Sequential(
+      (0): Conv2d(1, 64, kernel_size=(7, 7), stride=(2, 2), padding=(3, 3), bias=False), 3,136 params
+      (1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 128 params
+      (2): ReLU(inplace=True), 0 params
+      (3): MaxPool2d(kernel_size=3, stride=2, padding=1, dilation=1, ceil_mode=False), 0 params
+      (4): Sequential(
+        (0): BasicBlock(
+          (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 36,864 params
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 128 params
+          (relu): ReLU(inplace=True), 0 params
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 36,864 params
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 128 params
+        ), 73,984 params
+        (1): BasicBlock(
+          (conv1): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 36,864 params
+          (bn1): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 128 params
+          (relu): ReLU(inplace=True), 0 params
+          (conv2): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 36,864 params
+          (bn2): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 128 params
+        ), 73,984 params
+      ), 147,968 params
+      (5): Sequential(
+        (0): BasicBlock(
+          (conv1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False), 73,728 params
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 256 params
+          (relu): ReLU(inplace=True), 0 params
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 147,456 params
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 256 params
+          (downsample): Sequential(
+            (0): Conv2d(64, 128, kernel_size=(1, 1), stride=(2, 2), bias=False), 8,192 params
+            (1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 256 params
+          ), 8,448 params
+        ), 230,144 params
+        (1): BasicBlock(
+          (conv1): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 147,456 params
+          (bn1): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 256 params
+          (relu): ReLU(inplace=True), 0 params
+          (conv2): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 147,456 params
+          (bn2): BatchNorm2d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 256 params
+        ), 295,424 params
+      ), 525,568 params
+      (6): Sequential(
+        (0): BasicBlock(
+          (conv1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False), 294,912 params
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 512 params
+          (relu): ReLU(inplace=True), 0 params
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 589,824 params
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 512 params
+          (downsample): Sequential(
+            (0): Conv2d(128, 256, kernel_size=(1, 1), stride=(2, 2), bias=False), 32,768 params
+            (1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 512 params
+          ), 33,280 params
+        ), 919,040 params
+        (1): BasicBlock(
+          (conv1): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 589,824 params
+          (bn1): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 512 params
+          (relu): ReLU(inplace=True), 0 params
+          (conv2): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 589,824 params
+          (bn2): BatchNorm2d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 512 params
+        ), 1,180,672 params
+      ), 2,099,712 params
+      (7): Sequential(
+        (0): BasicBlock(
+          (conv1): Conv2d(256, 512, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1), bias=False), 1,179,648 params
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 1,024 params
+          (relu): ReLU(inplace=True), 0 params
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 2,359,296 params
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 1,024 params
+          (downsample): Sequential(
+            (0): Conv2d(256, 512, kernel_size=(1, 1), stride=(2, 2), bias=False), 131,072 params
+            (1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 1,024 params
+          ), 132,096 params
+        ), 3,673,088 params
+        (1): BasicBlock(
+          (conv1): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 2,359,296 params
+          (bn1): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 1,024 params
+          (relu): ReLU(inplace=True), 0 params
+          (conv2): Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False), 2,359,296 params
+          (bn2): BatchNorm2d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True), 1,024 params
+        ), 4,720,640 params
+      ), 8,393,728 params
+      (8): AdaptiveAvgPool2d(output_size=(1, 1)), 0 params
+    ), 11,170,240 params
+    (head): Linear(in_features=512, out_features=64, bias=True), 32,832 params
+  ), 11,203,072 params
+  (fusion): Linear(in_features=64, out_features=64, bias=True), 4,160 params
+  (norm_pre): LayerNorm((64,), eps=1e-05, elementwise_affine=True), 128 params
+  (gru): GRU(64, 64, num_layers=2, batch_first=True, dropout=0.5), 49,920 params
+  (multihead_attention): MultiheadAttention(
+    (out_proj): NonDynamicallyQuantizableLinear(in_features=64, out_features=64, bias=True), 4,160 params
+  ), 16,640 params
+  (classifier): Sequential(
+    (0): Linear(in_features=64, out_features=64, bias=True), 4,160 params
+    (1): ReLU(), 0 params
+    (2): Dropout(p=0.5, inplace=False), 0 params
+    (3): Linear(in_features=64, out_features=64, bias=True), 4,160 params
+    (4): ReLU(), 0 params
+    (5): Dropout(p=0.3, inplace=False), 0 params
+    (6): Linear(in_features=64, out_features=64, bias=True), 4,160 params
+  ), 12,480 params
+), 11,286,400 params
+
+
+======================================================================================================================
+
+
+==================================================
+
+Model Parameters:
+Total parameters: 11,286,400
+Trainable parameters: 11,286,400
+Non-trainable parameters: 0
+TrainDataSize: 8769
+TestDataSize: 2139
+DataSetTrainPath: /scratch/project_2005641/Beam_prediction/dataset/train_seqs_RA.csv
+DataSetTestPath: /scratch/project_2005641/Beam_prediction/dataset/test_seqs_RA.csv
+Student model Per-sample FLOPs: 12214.622 MFLOPs, 11.270 M params
