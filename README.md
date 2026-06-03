@@ -1,4 +1,4 @@
-# Enhanced_lightweight_learning_in_ISAC
+# Cross_scenario_lightweight_learning_in_ISAC
 Simulator for paper ...
 
 
