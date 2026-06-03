@@ -21,7 +21,7 @@ dataset/
     ├── unit1/
     └── scenario31_dev.csv
  ```
-5. Run the preprocessing scripts CSV_process.py and gen_data_seq.py in order
+
 
 ## Training model:
 
@@ -36,18 +36,13 @@ dataset/
 ## Testing model
 All trained model along with the hyparameters are under the folder: All_models/
 
--- run test_model_image.py to test the model
+-- run test_model.py to test the model in the folder: All_models/
 
 ### Models and hyperparameters:
-Nine models contained: 
-1) Teacher_noAtten.pth: Best teacher model without attention mechanism
-2) Teacher_withAtten.pth: Best teacher model with attention mechanism
-3) Teacher_selfKD.pth: Best teacher model (including attention mechanism) with self-KD refinement
-4) StudentL8_noKD.pth: Student model without KD for input sequence length 8
-5) StudentL8_KD.pth: Student model with KD for input sequence length 8
-6) StudentL5_noKD.pth: Student model without KD for input sequence length 5
-7) StudentL5_KD.pth: Student model with KD for input sequence length 5
-8) StudentL3_noKD.pth: Student model without KD for input sequence length 3
-9) StudentL3_KD.pth: Student model with KD for input sequence length 3
-   
+12 models contained: 
+
+- Proposed model under four cases: Data augmentation (True/Flase) & LabelSmoothing (True/Flase)
+- CNN-GRU model under four cases: Data augmentation (True/Flase) & LabelSmoothing (True/Flase)
+- ResNet-GRU model under four cases: Data augmentation (True/Flase) & LabelSmoothing (True/Flase)
+
 The hyperparameters are shown in the txt files.
