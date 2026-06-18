@@ -1,4 +1,4 @@
-# Cross_scenario_lightweight_learning_in_ISAC
+# Lightweight-Beam-Tracking-ISAC
 Simulator for paper ...
 
 
